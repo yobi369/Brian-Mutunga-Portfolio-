@@ -13,3 +13,11 @@ if (toggle && nav) {
 }
 const year = document.querySelector('#year');
 if (year) year.textContent = String(new Date().getFullYear());
+
+// Keep the compact mobile navigation in sync when returning to desktop width.
+window.addEventListener('resize', () => {
+  if (window.matchMedia('(min-width: 721px)').matches && toggle && nav) {
+    toggle.setAttribute('aria-expanded', 'false');
+    nav.classList.remove('open');
+  }
+});
