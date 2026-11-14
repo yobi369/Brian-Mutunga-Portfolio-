@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f2f0e9">
+<meta name="description" content="Engineering case study: a discrete-time RMS/EDF scheduling simulator and a bare-metal ARM Cortex-M3 kernel prototype, with automated CI and QEMU verification.">
+<link rel="canonical" href="https://brianmutunga.vercel.app/rtos.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RTOS Engineering Case Study — Brian Mutunga">
+<meta property="og:description" content="Real-time scheduling research, bare-metal Cortex-M3 kernel engineering, and reproducible verification.">
+<meta property="og:url" content="https://brianmutunga.vercel.app/rtos.html">
+<title>RTOS Engineering Case Study — Brian Mutunga</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+.case-hero{padding:72px 7vw 58px;border-bottom:1px solid var(--line)}.case-hero .eyebrow{margin-bottom:28px}.case-hero h1{font:800 clamp(42px,6vw,76px)/1.02 var(--display);letter-spacing:-.07em;max-width:1000px;margin:0}.case-hero h1 em{font-style:normal;color:#77796d}.case-lede{max-width:780px;font-size:18px;line-height:1.8;color:#55584f;margin:28px 0}.case-meta{display:flex;gap:12px;flex-wrap:wrap;font:10px var(--mono);letter-spacing:.08em;color:#65675e}.case-meta span{border:1px solid var(--line);padding:8px 10px}.case-body{padding:58px 7vw 90px;max-width:1440px;margin:auto}.case-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:7vw}.case-section{margin-bottom:54px}.case-section h2{font:800 clamp(27px,3vw,40px)/1.1 var(--display);letter-spacing:-.05em;margin:0 0 18px}.case-section p{color:#56594f;line-height:1.85;max-width:760px}.case-section ul{padding-left:20px;color:#56594f;line-height:1.95}.architecture{border:1px solid var(--line);background:#e9e7df;padding:20px;margin:24px 0}.architecture svg{width:100%;height:auto;display:block}.arch-label{font:10px var(--mono);letter-spacing:.1em;color:#66685e;margin-bottom:16px}.status-table{width:100%;border-collapse:collapse;font-size:13px}.status-table th,.status-table td{padding:13px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.status-table th{font:10px var(--mono);letter-spacing:.08em;color:#77796d}.status-table td{color:#4f524a;line-height:1.6}.status-table strong{color:var(--ink)}.notice{border-left:3px solid var(--orange);padding:16px 18px;background:#e9e7df;color:#4e5148;line-height:1.8}.case-aside{position:sticky;top:110px;align-self:start;border:1px solid var(--line);padding:22px;background:#e9e7df}.case-aside h3{font:700 15px var(--display);margin:0 0 14px}.case-aside a{display:block;border-top:1px solid var(--line);padding:13px 0;font:11px var(--mono)}.case-aside a span{float:right;color:var(--orange)}.case-footer{display:flex;gap:22px;flex-wrap:wrap;margin-top:30px}.case-footer a{font:11px var(--mono);border-bottom:1px solid var(--ink);padding-bottom:6px}@media(max-width:800px){.case-grid{grid-template-columns:1fr}.case-aside{position:static;order:-1}.case-body{padding-top:38px}.status-table{font-size:12px}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<a class="wordmark" href="/" aria-label="Brian Mutunga home"><span class="wordmark-mark">BM<span>↗</span></span><span class="wordmark-name">BRIAN MUTUNGA <small>SOFTWARE ENGINEER · KENYA</small></span></a>
+<button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation"><span></span><span></span></button><nav id="site-nav" aria-label="Main navigation"><a href="/#work">Work <i>01</i></a><a href="/#about">About <i>03</i></a><a href="/cv.html">CV ↗</a><a class="nav-contact" href="/#contact">Contact <span>↗</span></a></nav>
+</header>
+<main id="main">
+<section class="case-hero">
+<p class="eyebrow"><span class="eyebrow-index">ENGINEERING CASE STUDY / 07</span><span>EMBEDDED SYSTEMS · C / ARM</span></p>
+<h1>Real-Time Operating System.<br><em>Scheduling research meets kernel engineering.</em></h1>
+<p class="case-lede">An independent systems-engineering project combining a discrete-time RMS/EDF scheduling simulator with a separate bare-metal ARM Cortex-M3 kernel prototype. The work focuses on low-level execution mechanisms, task synchronization, deterministic tests, and honest verification boundaries.</p>
+<p class="notice">Source code is maintained in a private, proprietary repository. This public case study summarizes the engineering scope and verification boundaries without exposing implementation code.</p>
+<div class="case-meta"><span>C / C11</span><span>ARM CORTEX-M3</span><span>RMS / EDF</span><span>QEMU</span><span>GITHUB ACTIONS</span></div>
+</section>
+<section class="case-body">
+<div class="case-grid">
+<div>
+<article class="case-section">
+<h2>01 / The engineering problem</h2>
+<p>Real-time systems require more than selecting the next task. They must coordinate task state, timing events, context transitions, synchronization, and failure handling while making the limits of their guarantees explicit.</p>
+<p>This project approaches that problem through two separate surfaces: a scheduling simulator for exploring RMS and EDF policy behaviour, and a low-level Cortex-M3 kernel prototype that exercises embedded mechanisms.</p>
+</article>
+<article class="case-section">
+<h2>02 / System architecture</h2>
+<div class="architecture">
+<div class="arch-label">TWO RELATED, DISTINCT ENGINEERING SURFACES</div>
+<svg viewBox="0 0 760 330" role="img" aria-labelledby="arch-title arch-desc">
+<title id="arch-title">RTOS project architecture</title><desc id="arch-desc">Two columns show a Node.js RMS and EDF scheduling simulator and a separate bare-metal ARM Cortex-M3 kernel.</desc>
+<rect x="8" y="8" width="355" height="312" rx="5" fill="#f2f0e9" stroke="#b9b6aa"/>
+<rect x="397" y="8" width="355" height="312" rx="5" fill="#f2f0e9" stroke="#b9b6aa"/>
+<text x="28" y="38" font-family="monospace" font-size="13" fill="#22251f">01 / SIMULATOR</text>
+<text x="417" y="38" font-family="monospace" font-size="13" fill="#22251f">02 / EMBEDDED KERNEL</text>
+<g fill="#d9f36a" stroke="#22251f"><rect x="38" y="62" width="295" height="48" rx="4"/><rect x="38" y="132" width="295" height="48" rx="4"/><rect x="38" y="202" width="295" height="48" rx="4"/><rect x="427" y="62" width="295" height="48" rx="4"/><rect x="427" y="132" width="295" height="48" rx="4"/><rect x="427" y="202" width="295" height="48" rx="4"/></g>
+<g fill="#22251f" font-family="monospace" font-size="12" text-anchor="middle"><text x="185" y="91">Task configuration</text><text x="185" y="161">RMS / EDF policy</text><text x="185" y="231">Discrete-time traces</text><text x="574" y="91">SysTick / task state</text><text x="574" y="161">SVC / PendSV switching</text><text x="574" y="231">Semaphores / mutexes</text></g>
+<g stroke="#77796d" stroke-width="2" fill="none"><path d="M185 110v22m-5-5 5 5 5-5M185 180v22m-5-5 5 5 5-5M574 110v22m-5-5 5 5 5-5M574 180v22m-5-5 5 5 5-5"/></g>
+<text x="185" y="282" text-anchor="middle" font-family="monospace" font-size="10" fill="#77796d">Node.js · policy exploration</text>
+<text x="574" y="282" text-anchor="middle" font-family="monospace" font-size="10" fill="#77796d">C · Cortex-M3 prototype</text>
+</svg>
+</div>
+<p>The simulator does not run the embedded kernel. It is a discrete-time policy exploration tool. The embedded target uses the Cortex-M exception model: SysTick for periodic tick accounting, SVC for first-task launch, and PendSV for deferred context switching.</p>
+</article>
+<article class="case-section">
+<h2>03 / Implemented engineering areas</h2>
+<ul>
+<li>Rate Monotonic Scheduling (RMS) and Earliest Deadline First (EDF) simulation.</li>
+<li>Bare-metal Cortex-M3 startup and exception-based context switching.</li>
+<li>Task lifecycle, fixed-capacity task management, delays and timed waits.</li>
+<li>Semaphore and mutex APIs, bounded wait-cycle detection, and prototype priority inheritance.</li>
+<li>Stack canary and saved-stack-pointer diagnostics, plus fault-category capture.</li>
+<li>Host-native C regression tests, sanitizers, ARM cross-compilation and QEMU scenario tests.</li>
+</ul>
+</article>
+<article class="case-section">
+<h2>04 / Verification evidence</h2>
+<p>The GitHub Actions workflow completed successfully for the engineering showcase change. The associated private CI run retained simulator coverage and embedded verification artifacts. Its QEMU artifact contains actual console logs for the baseline boot/scheduler smoke test, tick-wrap scenario, task-return cleanup, priority-chain behaviour, stack-guard handling, and repeated mutex deadlock checks. Detailed logs can be shared during a technical review.</p>
+<table class="status-table">
+<thead><tr><th>SURFACE</th><th>VERIFICATION CLASSIFICATION</th></tr></thead>
+<tbody>
+<tr><td><strong>RMS/EDF simulator</strong></td><td>Automated software tests and coverage gate.</td></tr>
+<tr><td><strong>Cortex-M3 kernel</strong></td><td>Cross-compiled and exercised in QEMU, with native C and sanitizer checks.</td></tr>
+<tr><td><strong>STM32 Nucleo-F103RB</strong></td><td>Separate firmware image is build-checked; physical board validation remains pending.</td></tr>
+</tbody>
+</table>
+</article>
+<article class="case-section">
+<h2>05 / Limitations and next milestones</h2>
+<div class="notice"><strong>Engineering honesty:</strong> This is an engineering prototype, not a production-ready or safety-certified RTOS. QEMU behaviour does not establish physical timing, worst-case execution time, hard real-time guarantees, or board compatibility.</div>
+<ul>
+<li>Bring up the Nucleo-F103RB physically and retain serial/debug evidence.</li>
+<li>Calibrate the actual clock and SysTick period; measure jitter and context-switch latency.</li>
+<li>Measure interrupt-disabled duration, stack headroom, flash/RAM margins and fault behaviour under representative loads.</li>
+<li>Expand state-transition and synchronization assurance tests.</li>
+<li>Evaluate an MPU-equipped MCU if per-task memory isolation is required.</li>
+</ul>
+<p>The current STM32F103RB does not provide an MPU. Stack canaries and saved-stack-pointer checks are diagnostics, not memory isolation. The mutex priority-inheritance policy remains a prototype and is not formally proven.</p>
+</article>
+</div>
+<aside class="case-aside">
+<h3>PROJECT INDEX</h3>
+<a href="/#work">Back to selected work <span>↗</span></a>
+<a href="mailto:bmutunga794@gmail.com?subject=Request%20for%20RTOS%20verification%20evidence">Request verification evidence <span>↗</span></a>
+<a href="mailto:bmutunga794@gmail.com?subject=RTOS%20engineering%20enquiry">Discuss this project <span>↗</span></a>
+<a href="/cv.html">View CV <span>↗</span></a>
+</aside>
+</div>
+<div class="case-footer"><a href="/#work">← BACK TO PROJECTS</a><a href="https://github.com/yobi369" target="_blank" rel="noreferrer">GITHUB PROFILE ↗</a><a href="/#contact">CONTACT ↗</a></div>
+</section>
+</main>
+<footer><a class="footer-mark" href="/">BM<span>↗</span></a><span>BUILT WITH INTENT. ALWAYS IN PROGRESS.</span><span>© 2026 BRIAN MUTUNGA</span><a href="#">BACK TO TOP ↑</a></footer>
+<script src="/script.js" defer></script>
+</body></html>
