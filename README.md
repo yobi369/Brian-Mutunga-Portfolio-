@@ -2,6 +2,8 @@
 
 A responsive, editorial-style portfolio for presenting selected work across software engineering, systems, cybersecurity, networking, infrastructure, and scientific computing.
 
+**Recruiter quick links:** [Live portfolio](https://brianmutunga.vercel.app/) · [GitHub profile](https://github.com/yobi369) · [Recruiter-focused GitHub profile README draft](GITHUB_PROFILE_README.md)
+
 ## Design direction
 
 The site is designed as an engineering portfolio rather than a generic developer landing page:
