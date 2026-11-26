@@ -1,53 +1,55 @@
-# Brian Mutunga — Engineering Portfolio
+# BM Tech — Software Products & Technology Services
 
-A responsive, editorial-style portfolio for presenting selected work across software engineering, systems, cybersecurity, networking, infrastructure, and scientific computing.
+BM Tech is an independent technology business founded by Brian Mutunga, based in Kenya and serving customers in Kenya and internationally.
 
-**Recruiter quick links:** [Live portfolio](https://brianmutunga.vercel.app/) · [GitHub profile](https://github.com/yobi369) · [Recruiter-focused GitHub profile README draft](GITHUB_PROFILE_README.md)
+The business combines two complementary areas:
 
-## Design direction
+- **Software products:** independently developed applications, tools and engineering platforms.
+- **Technology services:** custom software development, backend and API engineering, cybersecurity-minded development, cloud and infrastructure work, integrations and technical support.
 
-The site is designed as an engineering portfolio rather than a generic developer landing page:
-- Distinctive editorial typography and a restrained paper / ink / signal-lime palette.
-- A custom SVG systems map and original CSS/SVG project illustrations.
-- Three featured case-study summaries followed by a concise technical index of six additional projects.
-- Clear separation between demonstrations, source repositories, research prototypes, and validated capabilities.
-- Responsive layouts, keyboard-visible focus, semantic landmarks, reduced-motion support, and accessible mobile navigation.
+## Product and service portfolio
 
-## Stack
+The GitHub repositories linked to BM Tech represent a range of product initiatives, prototypes, research projects and reusable engineering work. Their maturity varies. A public repository or demonstration does not automatically mean a product is production-ready or available for commercial deployment.
 
-- Semantic HTML
-- Responsive CSS
-- Small vanilla JavaScript navigation enhancement
-- JSON-LD Person metadata, canonical / Open Graph metadata, sitemap, and robots directives
-- Static deployment on Vercel
+Before a product is offered to customers, its scope, licensing, security posture, deployment requirements, support model and operational readiness must be reviewed and documented.
 
-## Run locally
+## Business website
 
-Serve this directory with any static file server:
+- Website: https://brianmutunga.vercel.app/
+- GitHub: https://github.com/yobi369
+- Location: Kenya
+- Market: Kenya and international
 
-```bash
-python3 -m http.server 8000
-```
+## Services
 
-Open `http://localhost:8000`.
+BM Tech can scope engagements around:
+- Custom websites and web applications
+- Backend services, APIs and integrations
+- Business workflow automation
+- Database design and application data systems
+- Cybersecurity-minded application engineering and defensive tooling
+- Cloud deployment and infrastructure support
+- Technical documentation and ongoing maintenance
 
-## Deploy
+Specific deliverables, timelines, fees and acceptance criteria are agreed with each customer before work begins.
 
-The repository is configured for static deployment on Vercel from the repository root. No build command is required. The production domain in metadata is `https://brianmutunga.vercel.app/`.
+## Engineering principles
 
-## Accuracy and readiness notes
+- Honest product maturity and capability statements
+- Secure-by-design thinking and explicit trust boundaries
+- Maintainable implementation and meaningful automated tests
+- Clear documentation and reproducible deployment steps
+- Customer data minimization and responsible handling
+- Transparent scope, delivery milestones and support expectations
 
-- Project descriptions intentionally distinguish prototypes, research work, demos, and validated capabilities.
-- The RTOS project's physical hardware validation is separate from automated software tests.
-- Chemistry Lab scientific outputs remain subject to documented model assumptions and independent validation.
-- NETOPPS is a read-only-by-default local network operations toolkit, not a live network controller.
-- Confirm contact details, credential links, and downloadable CV content before making additional claims.
-- Do not add unverified job titles, customer claims, performance metrics, certifications, or project outcomes.
+## Technology
 
-## Accessibility and testing
+The portfolio includes work across TypeScript, JavaScript, Python, C/C++, React, Node.js, FastAPI, PostgreSQL, Docker, GitHub Actions, Vercel and Render. This list reflects technologies represented in repositories, not a claim that every project is production-ready.
 
-The page includes a skip link, semantic landmarks, accessible mobile navigation state, visible keyboard focus, and reduced-motion handling. These implementation features are not a substitute for automated accessibility tooling or manual screen-reader and cross-browser testing.
+## Ownership and licensing
 
-## License
+BM Tech does not claim ownership of third-party dependencies, frameworks, libraries or external services used by its projects. Commercial use and redistribution rights must be checked against each repository's actual license and dependency terms. Where no license is present, the repository's source should not be assumed to grant reuse rights.
 
-Unless a separate license is added, all rights to this personal portfolio content remain with its author.
+## Contact
+
+For product enquiries, demonstrations, custom development or technical services, use the contact details published on the business website.
