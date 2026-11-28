@@ -21,3 +21,27 @@ window.addEventListener('resize', () => {
     nav.classList.remove('open');
   }
 });
+
+
+/* Progressive reveal: content remains visible when scripting or observer support is unavailable. */
+const revealTargets = document.querySelectorAll(
+  '.hero-main, .hero-visual, .section-head, .bm-product, .gallery-card, .service-card, .delivery-note, .capability-grid article, .about-content, .contact-section h2'
+);
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  revealTargets.forEach((element, index) => {
+    element.setAttribute('data-reveal', '');
+    if (element.matches('.bm-product, .service-card, .capability-grid article')) {
+      element.setAttribute('data-delay', String((index % 3) + 1));
+    }
+  });
+  document.documentElement.classList.add('motion-ready');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+  revealTargets.forEach((element) => revealObserver.observe(element));
+}
