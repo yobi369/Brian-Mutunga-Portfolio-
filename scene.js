@@ -141,8 +141,9 @@ if (mount && canvas && toggle && !window.matchMedia("(prefers-reduced-motion: re
     const clock = new THREE.Clock();
     function animate() {
       frame = requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-      const blend = 1 - Math.pow(0.0008, clock.getDelta());
+      const delta = clock.getDelta();
+      const t = clock.elapsedTime;
+      const blend = 1 - Math.pow(0.0008, delta);
       machine.rotation.y += (pointer.x * 0.22 - machine.rotation.y) * blend;
       machine.rotation.x += (-pointer.y * 0.13 - machine.rotation.x) * blend;
       machine.rotation.z = Math.sin(t * 0.22) * 0.035;
